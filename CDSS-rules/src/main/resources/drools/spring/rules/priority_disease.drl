@@ -1,0 +1,111 @@
+package drools.spring.rules;
+import sbnz.cdss.model.dto.SymptomsForSearch;
+import sbnz.cdss.model.entity.Disease;
+import sbnz.cdss.model.entity.DiseaseSymptom;
+import sbnz.cdss.model.entity.Examination
+rule "Prehlada"
+agenda-group "priority-symptoms"
+salience $total.doubleValue() / ((double)$allSymptoms.size()) * 100
+when
+    $symptoms : SymptomsForSearch($list:symptoms)
+    Disease(name == "Prehlada", $allSymptoms: symptoms)
+
+    $total: Number(intValue >= 4) from accumulate(
+        $ds : DiseaseSymptom(
+            symptom.description memberOf $list
+        ) from $allSymptoms,
+        count($ds)
+       )
+then
+    System.out.println($total.doubleValue() / ((double)$allSymptoms.size()) * 100);
+end
+
+
+rule "Groznica"
+agenda-group "priority-symptoms"
+salience $total.doubleValue() / ((double)$allSymptoms.size()) * 100
+when
+    $symptoms : SymptomsForSearch($list:symptoms)
+    Disease(name == "Groznica", $allSymptoms: symptoms)
+
+    $total: Number(intValue >= 4) from accumulate(
+        $ds : DiseaseSymptom(
+            symptom.description memberOf $list
+        ) from $allSymptoms,
+        count($ds)
+       )
+then
+    System.out.println($total.doubleValue() / ((double)$allSymptoms.size()) * 100);
+end
+
+rule "Upala krajnika"
+agenda-group "priority-symptoms"
+salience $total.doubleValue() / ((double)$allSymptoms.size()) * 100
+when
+    $symptoms : SymptomsForSearch($list:symptoms)
+    Disease(name == "Upala krajnika", $allSymptoms: symptoms)
+
+    $total: Number(intValue >= 4) from accumulate(
+        $ds : DiseaseSymptom(
+            symptom.description memberOf $list
+
+        ) from $allSymptoms,
+        count($ds)
+       )
+
+then
+    System.out.println($total.doubleValue() / ((double)$allSymptoms.size()) * 100);
+end
+
+
+
+rule "Sinusna infekcija"
+agenda-group "priority-symptoms"
+salience $total.doubleValue() / ((double)$allSymptoms.size()) * 100
+when
+    $symptoms : SymptomsForSearch($list:symptoms,$patient: patient, $now : date)
+    Disease(name == "Sinusna infekcija", $allSymptoms: symptoms)
+
+	$total: Number(intValue >= 4) from accumulate(
+        $ds : DiseaseSymptom(
+            symptom.description memberOf $list
+
+        ) from $allSymptoms,
+        count($ds)
+       )
+
+    $els : Number(intValue >= 1) from accumulate(
+    	$ex: Examination(this before[60d] $now) from $patient.examinations,
+        count($ex)
+    )
+
+then
+    System.out.println($els);
+end
+
+
+rule "Sinusna infekcija sa uslovom"
+agenda-group "priority-symptoms"
+salience $total.doubleValue() / ((double)$allSymptoms.size()) * 100
+when
+    $symptoms : SymptomsForSearch($list:symptoms,$patient: patient, $now : date)
+    Disease(name == "Sinusna infekcija", $allSymptoms: symptoms)
+
+	$total: Number(intValue >= 4) from accumulate(
+        $ds : DiseaseSymptom(
+            symptom.description memberOf $list
+            "Pacijent bolovao od prehlade ili
+              groznice u poslednjih 60 dana" not memberOf $list
+
+        ) from $allSymptoms,
+        count($ds)
+       )
+
+    $els : Number(intValue >= 1) from accumulate(
+    	$ex: Examination(this before[60d] $now) from $patient.examinations,
+        count($ex)
+    )
+
+then
+    System.out.println($els);
+end

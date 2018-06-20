@@ -1,0 +1,31 @@
+<div class="bgimg">
+  <div class="rec">
+    <div class="loginText" align="center">
+      <h3>Login</h3>
+      <hr style="margin-top: 4%">
+    </div>
+    <div style="margin-top: 10%;width: 55%;margin-left: 23%;">
+      <div class="input-group mb-3" >
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">
+            <i class="fa fa-user fa-2x "></i>
+          </span>
+        </div>
+        <input class="form-control" id="username" [(ngModel)]="username" placeholder="Username" aria-describedby="basic-addon1"
+               style="width: 50%" type="text">
+      </div>
+      <div class="input-group mb-3" style="margin-top: 10%">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon2">
+            <i class="fa fa-lock fa-2x "></i>
+          </span>
+        </div>
+        <input type="password" class="form-control"  [(ngModel)]="password" placeholder="Password" id="pass" aria-describedby="basic-addon2"
+               style="width: 50%">
+      </div>
+      <div class="input-group mb-3" style="margin-top: 15%" >
+        <button class="btn btn-lg btn-dark" (click)="login()" style="margin-left: 38%">Login</button>
+      </div>
+    </div>
+  </div>
+</div>

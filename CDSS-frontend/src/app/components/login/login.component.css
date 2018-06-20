@@ -1,0 +1,17 @@
+
+.rec {
+  width: 55%;
+  height: 100%;
+  background: rgba(248,249,250, 0.95);
+  margin-left: 20%;
+  padding-bottom: 3%;
+  margin-top: 3%;
+  border-radius: 2%;
+  /*padding: 30% 3% 10% 5%;*/
+}
+
+.loginText {
+  padding: 3% 0 0 0;
+  background-color: rgba(210, 210, 251, 0.81);
+  border-radius: 2%
+}
