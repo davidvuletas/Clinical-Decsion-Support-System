@@ -21,11 +21,11 @@ public class Examination {
     @Column(name = "date")
     private Date date;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "doctor_id")
     private User doctor;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "disease_id")
     private Disease disease;
 
@@ -74,4 +74,5 @@ public class Examination {
     public void setMedicals(List<Medical> medicals) {
         this.medicals = medicals;
     }
+
 }

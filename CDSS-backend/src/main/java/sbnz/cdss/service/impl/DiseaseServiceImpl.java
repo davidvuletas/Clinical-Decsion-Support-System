@@ -2,7 +2,7 @@ package sbnz.cdss.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import sbnz.cdss.model.entity.DisaeseCategory;
+import sbnz.cdss.model.entity.DiseaseCategory;
 import sbnz.cdss.model.entity.Disease;
 import sbnz.cdss.repository.DiseaseRepository;
 import sbnz.cdss.service.DiseaseService;
@@ -34,7 +34,7 @@ public class DiseaseServiceImpl implements DiseaseService {
     }
 
     @Override
-    public List<Disease> getAllDiseasesByCategory(DisaeseCategory category) {
+    public List<Disease> getAllDiseasesByCategory(DiseaseCategory category) {
         List<Disease> diseases = this.diseaseRepository.getDiseasesByDisaeseCategory(category);
         return diseases;
     }
@@ -42,5 +42,10 @@ public class DiseaseServiceImpl implements DiseaseService {
     @Override
     public void deleteDisease(Disease disease) {
         this.diseaseRepository.delete(disease);
+    }
+
+    @Override
+    public List<Disease> getAllDiseaseLinkedBySymptoms(List<String> symptoms) {
+        return null;
     }
 }

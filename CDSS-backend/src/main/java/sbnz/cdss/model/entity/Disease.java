@@ -14,7 +14,7 @@ public class Disease {
 
     @Column
     @Enumerated(value = EnumType.STRING)
-    private DisaeseCategory disaeseCategory;
+    private DiseaseCategory disaeseCategory;
 
     @Column(name = "name")
     private String name;
@@ -37,11 +37,11 @@ public class Disease {
         this.id = id;
     }
 
-    public DisaeseCategory getDisaeseCategory() {
+    public DiseaseCategory getDisaeseCategory() {
         return disaeseCategory;
     }
 
-    public void setDisaeseCategory(DisaeseCategory disaeseCategory) {
+    public void setDisaeseCategory(DiseaseCategory disaeseCategory) {
         this.disaeseCategory = disaeseCategory;
     }
 

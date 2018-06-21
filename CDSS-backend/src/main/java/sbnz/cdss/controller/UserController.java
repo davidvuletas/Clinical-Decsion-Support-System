@@ -5,15 +5,13 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import sbnz.cdss.model.dto.DoctorDto;
 import sbnz.cdss.model.dto.LoginDto;
 import sbnz.cdss.model.dto.LogoutDto;
 import sbnz.cdss.model.dto.UserDto;
 import sbnz.cdss.model.entity.User;
+import sbnz.cdss.service.PatientService;
 import sbnz.cdss.service.UserService;
 import sbnz.cdss.service.UtilService;
 
@@ -31,6 +29,9 @@ public class UserController {
 
     @Autowired
     private UtilService utilService;
+
+    @Autowired
+    private PatientService patientService;
 
     @Autowired
     private HashMap<String, KieSession> sessions;
@@ -62,5 +63,10 @@ public class UserController {
         this.sessions.get(logoutDto.getUsername()).dispose();
         this.sessions.remove(logoutDto.getUsername());
         return ResponseEntity.accepted().body(null);
+    }
+
+    @GetMapping("/get-all-symptoms/{cardNumber}")
+    public ResponseEntity<?> getAllSymptoms(@PathVariable String cardNumber) {
+        return ResponseEntity.ok(this.patientService.findPatientByCardNumber(cardNumber));
     }
 }

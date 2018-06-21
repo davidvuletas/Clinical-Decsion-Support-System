@@ -1,7 +1,7 @@
 package sbnz.cdss.service;
 
 import org.springframework.stereotype.Service;
-import sbnz.cdss.model.entity.DisaeseCategory;
+import sbnz.cdss.model.entity.DiseaseCategory;
 import sbnz.cdss.model.entity.Disease;
 
 import java.util.List;
@@ -15,7 +15,9 @@ public interface DiseaseService {
 
     Disease getDiseaseByName(String name);
 
-    List<Disease> getAllDiseasesByCategory(DisaeseCategory category);
+    List<Disease> getAllDiseasesByCategory(DiseaseCategory category);
 
     void deleteDisease(Disease disease);
+
+    List<Disease> getAllDiseaseLinkedBySymptoms(List<String> symptoms);
 }

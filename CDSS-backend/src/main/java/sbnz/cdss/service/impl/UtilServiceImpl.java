@@ -29,7 +29,7 @@ public class UtilServiceImpl implements UtilService {
 
     @Override
     public void createKieSession(String username) {
-        KieSession kieSession = kieContainer.newKieSession();
+        KieSession kieSession = kieContainer.newKieSession("ksession-rules");
         kieSession.addEventListener(new DebugAgendaEventListener());
         List<Disease> diseases = this.diseaseService.getAllDiseases();
         for (Disease d:diseases) {

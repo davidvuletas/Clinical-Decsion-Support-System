@@ -1,8 +1,12 @@
 package drools.spring.rules;
 import sbnz.cdss.model.dto.SymptomsForSearch;
 import sbnz.cdss.model.entity.Disease;
+import sbnz.cdss.model.entity.Symptom;
 import sbnz.cdss.model.entity.DiseaseSymptom;
-import sbnz.cdss.model.entity.Examination
+import sbnz.cdss.model.entity.Examination;
+import sbnz.cdss.model.entity.CategoryOfMedical;
+
+import java.util.*;
 rule "Prehlada"
 agenda-group "priority-symptoms"
 salience $total.doubleValue() / ((double)$allSymptoms.size()) * 100
@@ -58,54 +62,126 @@ then
 end
 
 
-
 rule "Sinusna infekcija"
 agenda-group "priority-symptoms"
 salience $total.doubleValue() / ((double)$allSymptoms.size()) * 100
 when
-    $symptoms : SymptomsForSearch($list:symptoms,$patient: patient, $now : date)
-    Disease(name == "Sinusna infekcija", $allSymptoms: symptoms)
+    SymptomsForSearch($list:symptoms,$patient: patient, $now: date)
+    $d: Disease(name == "Sinusna infekcija", $allSymptoms: symptoms)
 
-	$total: Number(intValue >= 4) from accumulate(
-        $ds : DiseaseSymptom(
-            symptom.description memberOf $list
-
-        ) from $allSymptoms,
-        count($ds)
-       )
-
-    $els : Number(intValue >= 1) from accumulate(
-    	$ex: Examination(this before[60d] $now) from $patient.examinations,
+	$n: Number(intValue >= 1) from accumulate(
+    	$ex: Examination(
+    			this meets[60d] $now,disease.name == "Prehlada" || disease.name == "Groznica"
+    	) from $patient.examinations,
         count($ex)
     )
 
+	$total: Number(($n == 0 && intValue >= 4) || ($n >0 && intValue >=3)) from accumulate(
+       $ds : DiseaseSymptom(
+         symptom.description memberOf $list,general == false
+        )
+        from $allSymptoms,
+        count($ds)
+       )
 then
-    System.out.println($els);
+    System.out.println($total);
 end
 
 
-rule "Sinusna infekcija sa uslovom"
+rule "Hipertenzija"
+agenda-group "priority-symptoms"
+salience $n*10
+when
+	SymptomsForSearch($list:symptoms,$patient: patient, $now: date)
+    Disease(name == "Hipertenzija", $allSymptoms: symptoms)
+    
+    $n: Number(intValue >= 10) from accumulate(
+    	$ex: Examination(
+    		this meets [180d] $now,disease.name == "Visok pritisak"
+    	) from $patient.examinations,
+    	count($ex)
+    )
+then
+end
+
+
+rule "Dijabetes"
 agenda-group "priority-symptoms"
 salience $total.doubleValue() / ((double)$allSymptoms.size()) * 100
 when
-    $symptoms : SymptomsForSearch($list:symptoms,$patient: patient, $now : date)
-    Disease(name == "Sinusna infekcija", $allSymptoms: symptoms)
-
-	$total: Number(intValue >= 4) from accumulate(
-        $ds : DiseaseSymptom(
-            symptom.description memberOf $list
-            "Pacijent bolovao od prehlade ili
-              groznice u poslednjih 60 dana" not memberOf $list
-
-        ) from $allSymptoms,
+	SymptomsForSearch($list:symptoms,$patient: patient, $now: date)
+    Disease(name == "Dijabetes", $allSymptoms: symptoms)
+    
+    $total: Number(intValue == 4) from accumulate(
+    	$ds : DiseaseSymptom(
+    		symptom.description memberOf $list
+       	)
+        from $allSymptoms,
         count($ds)
-       )
-
-    $els : Number(intValue >= 1) from accumulate(
-    	$ex: Examination(this before[60d] $now) from $patient.examinations,
-        count($ex)
-    )
-
+	)
 then
-    System.out.println($els);
 end
+
+rule "Hronična bubrežna bolest"
+agenda-group "priority-symptoms"
+salience 100
+when
+	SymptomsForSearch($list: symptoms,$patient: patient, $now: date)
+    Disease(name == "Hronična bubrežna bolest", $allSymptoms: symptoms)
+        $notGeneral: Number(intValue >= 2) from accumulate(
+	       	$ds : DiseaseSymptom(
+	        	general == false,       
+	         	symptom.description memberOf $list
+	       	)
+	        from $allSymptoms,
+	        count($ds)
+		)
+	 
+    $general : Number(intValue >= 1) from accumulate(
+		$ex : Examination(
+				(this before[180d] $now && disease.name == "Hipertenzija") || (disease.name == "Dijabetes")
+			)
+			from $patient.examinations,
+			count($ex)
+    ) 
+then
+end
+
+rule "Akutna bubrežna povreda"
+agenda-group "priority-symptoms"
+salience 100
+when
+	SymptomsForSearch($list: symptoms,$patient: patient, $now: date)
+    Disease(name == "Akutna bubrežna povreda", $allSymptoms: symptoms)
+    
+    $notGeneral: Number(intValue>=2) from accumulate(
+	   	$ds : DiseaseSymptom(
+	    	general == false,       
+	     	symptom.description memberOf $list
+	   	)
+	    from $allSymptoms,
+	    count($ds)
+	)
+	
+	$generalAnt: Number() from accumulate(
+		$ex: Examination($r2: /medicals{category == CategoryOfMedical.ANTIBIOTIC},
+		this meets[21d] $now)
+		from $patient.examinations,
+		count($ex)
+	)
+	
+	$generalTemp: Number(($generalAnt == 0 && intValue >= 1) || ($generalAnt >= 1 && intValue >=0)) from accumulate(
+		$ex: Examination($r: /disease/symptoms/symptom{description contains"Temperatura"},
+		this meets[14d] $now) 
+		from $patient.examinations,
+		count($ex)
+	)
+	
+	   
+then
+	System.out.println($generalAnt);
+	System.out.println($generalTemp);
+end
+
+
+

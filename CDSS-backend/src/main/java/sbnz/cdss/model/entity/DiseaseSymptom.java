@@ -5,7 +5,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "disease_symptom")
-public class DiseaseSymptom {
+public class  DiseaseSymptom {
 
     @EmbeddedId
     private DiseaseSymptomId id;

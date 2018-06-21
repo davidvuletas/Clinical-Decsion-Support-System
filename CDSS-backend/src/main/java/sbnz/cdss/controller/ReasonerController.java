@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import sbnz.cdss.model.dto.SymptomsForSearch;
+import sbnz.cdss.model.entity.Patient;
+import sbnz.cdss.service.PatientService;
 import sbnz.cdss.service.impl.DebugAgendaEventListener;
 
 import java.util.HashMap;
@@ -21,12 +23,17 @@ public class ReasonerController {
     @Autowired
     private HashMap<String, KieSession> sessions;
 
+    @Autowired
+    private PatientService patientService;
+
     @PostMapping("/find-disease/priority")
     public ResponseEntity<?> findDiseaseBySymptomsWithPriority(@RequestBody SymptomsForSearch symptomsForSearch) {
+        Patient patient = this.patientService.findPatientByCardNumber(symptomsForSearch.getPatient().getHealthCardNumber());
+        symptomsForSearch.setPatient(patient);
         KieSession kieSession = this.sessions.get("david");
         kieSession.getAgenda().getAgendaGroup("priority-symptoms").setFocus();
         kieSession.insert(symptomsForSearch);
-        kieSession.fireAllRules(1);
+        kieSession.fireAllRules();
         AgendaEventListener listener = (AgendaEventListener) kieSession.getAgendaEventListeners().toArray()[0];
         int len = ((DebugAgendaEventListener) listener).getRulesFired().size();
         String disease = "";

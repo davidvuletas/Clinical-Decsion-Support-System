@@ -19,12 +19,13 @@ public class CdssApplication {
     public ModelMapper modelMapper() {
         return new ModelMapper();
     }
+
     @Bean
     public KieContainer kieContainer() {
         KieServices ks = KieServices.Factory.get();
         KieContainer kContainer = ks.newKieContainer(ks.newReleaseId("CDSS-rules","CDSS-rules-kjar", "0.0.1-SNAPSHOT"));
         KieScanner kScanner = ks.newKieScanner(kContainer);
-        kScanner.start(10_000);
+        kScanner.start(3000);
         return kContainer;
     }
 

@@ -1,0 +1,10 @@
+package drools.spring.rules;
+import sbnz.cdss.model.entity.Disease;
+import sbnz.cdss.model.entity.Symptom;
+import sbnz.cdss.model.entity.DiseaseSymptom;
+import sbnz.cdss.model.entity.Examination;
+import sbnz.cdss.model.entity.CategoryOfMedical;
+
+query getAllDiseaseLinkedBySympthoms(List<String> symptoms)
+	Disease
+end
