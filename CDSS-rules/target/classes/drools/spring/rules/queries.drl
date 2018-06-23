@@ -4,7 +4,56 @@ import sbnz.cdss.model.entity.Symptom;
 import sbnz.cdss.model.entity.DiseaseSymptom;
 import sbnz.cdss.model.entity.Examination;
 import sbnz.cdss.model.entity.CategoryOfMedical;
+import sbnz.cdss.model.entity.Patient;
 
-query getAllDiseaseLinkedBySympthoms(List<String> symptoms)
-	Disease
+import java.util.*;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Date;
+
+query getAllDiseaseLinkedBySymptoms(List inputSymptoms)
+	
+	$ds : Disease($symptoms: symptoms)
+	
+	d : Map() from accumulate(
+	
+		DiseaseSymptom(
+			inputSymptoms contains symptom.description
+		)from $symptoms,
+		init(Map mapa = new HashMap();),
+		action(
+			if(mapa.containsKey($ds)) {
+				mapa.put($ds, (int)mapa.get($ds)+1);
+			}else {
+				mapa.put($ds,1);
+			}
+			),
+		result(mapa)
+	)
+	
+end
+
+query getDiseaseWithSymptoms(String nameOfSymptoms)
+	
+	$d : Disease(name == nameOfSymptoms,$symptoms: symptoms)
+	$sg : List() from collect(DiseaseSymptom(general == true) from $symptoms)
+	$sng : List() from collect(DiseaseSymptom(general == false) from $symptoms)
+	
+end
+
+
+query getReportForChronicDisease(long DAY_IN_MS)
+	
+	$p: Patient($examinations: examinations)
+	patients: List() from accumulate(
+		Examination((disease.name !="Groznica" && disease.name != "Prehlada") && eval(date.after(new Date(System.currentTimeMillis() - (730 * DAY_IN_MS)))) )
+		from $examinations,
+		init(List lista = new ArrayList();),
+		action(if(!lista.contains($p))
+					lista.add($p);),
+		result(lista)	
+	)
+	
+	
+
 end

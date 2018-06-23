@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "symptom")
@@ -50,5 +51,13 @@ public class Symptom {
 
     public void setDiseases(List<DiseaseSymptom> diseases) {
         this.diseases = diseases;
+    }
+
+    @Override
+    public String toString() {
+        return "Symptom{" +
+                "id=" + id +
+                ", description='" + description + '\'' +
+                '}';
     }
 }

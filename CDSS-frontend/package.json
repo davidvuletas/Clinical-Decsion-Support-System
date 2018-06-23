@@ -21,6 +21,7 @@
     "@angular/platform-browser": "^6.0.5",
     "@angular/platform-browser-dynamic": "^6.0.5",
     "@angular/router": "^6.0.5",
+    "@ng-select/ng-select": "^2.3.1",
     "@schematics/angular": "^0.6.8",
     "angular-archwizard": "^3.0.0",
     "bootstrap": "^4.1.1",

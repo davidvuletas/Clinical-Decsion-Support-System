@@ -13,6 +13,8 @@ import {ToastrModule} from 'ngx-toastr';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { ServePatientComponent } from './components/serve-patient/serve-patient.component';
 import {ArchwizardModule} from 'angular-archwizard';
+import {NgSelectModule} from '@ng-select/ng-select';
+import { DiagnosticOptionsComponent } from './components/diagnostic-options/diagnostic-options.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,8 @@ import {ArchwizardModule} from 'angular-archwizard';
     NavbarComponent,
     LoginComponent,
     HomeComponent,
-    ServePatientComponent
+    ServePatientComponent,
+    DiagnosticOptionsComponent
   ],
   imports: [
     BrowserModule,
@@ -32,8 +35,8 @@ import {ArchwizardModule} from 'angular-archwizard';
       preventDuplicates: true,
     }),
     BrowserAnimationsModule, // required animations module
-    ArchwizardModule
-
+    ArchwizardModule,
+    NgSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

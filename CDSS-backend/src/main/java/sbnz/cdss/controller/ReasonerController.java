@@ -5,13 +5,12 @@ import org.kie.api.runtime.KieSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import sbnz.cdss.model.dto.PatientDto;
 import sbnz.cdss.model.dto.SymptomsForSearch;
 import sbnz.cdss.model.entity.Patient;
 import sbnz.cdss.service.PatientService;
+import sbnz.cdss.service.ReportService;
 import sbnz.cdss.service.impl.DebugAgendaEventListener;
 
 import java.util.HashMap;
@@ -26,14 +25,17 @@ public class ReasonerController {
     @Autowired
     private PatientService patientService;
 
+    @Autowired
+    private ReportService reportService;
+
     @PostMapping("/find-disease/priority")
     public ResponseEntity<?> findDiseaseBySymptomsWithPriority(@RequestBody SymptomsForSearch symptomsForSearch) {
-        Patient patient = this.patientService.findPatientByCardNumber(symptomsForSearch.getPatient().getHealthCardNumber());
+        Patient patient = this.patientService.findPatientByCardNumber(symptomsForSearch.getPatientDto().getCardNumber());
         symptomsForSearch.setPatient(patient);
-        KieSession kieSession = this.sessions.get("david");
+        KieSession kieSession = this.sessions.get("dr_tica");
         kieSession.getAgenda().getAgendaGroup("priority-symptoms").setFocus();
         kieSession.insert(symptomsForSearch);
-        kieSession.fireAllRules();
+        kieSession.fireAllRules(1);
         AgendaEventListener listener = (AgendaEventListener) kieSession.getAgendaEventListeners().toArray()[0];
         int len = ((DebugAgendaEventListener) listener).getRulesFired().size();
         String disease = "";
@@ -45,5 +47,10 @@ public class ReasonerController {
         return new ResponseEntity<>(disease, HttpStatus.ACCEPTED);
     }
 
+    @GetMapping("/report/patients/chronic-disease")
+    public ResponseEntity<?> getReportForPatientWithChronicDisease() {
+        this.reportService.getAllPatientsChronic();
+        return ResponseEntity.ok("");
+    }
 
 }

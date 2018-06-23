@@ -75,4 +75,11 @@ public class Examination {
         this.medicals = medicals;
     }
 
+    @Override
+    public String toString() {
+        return "Examination{" +
+                "date=" + date +
+                "disease=" + disease +
+                '}';
+    }
 }

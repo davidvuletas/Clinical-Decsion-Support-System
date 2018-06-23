@@ -1,4 +1,181 @@
-<aw-wizard [navBarLocation]='"left"' [navBarLayout]='"large-filled-symbols"'>
-  <aw-wizard-step stepTitle="Second Step" [navigationSymbol]="{ symbol: '2' }"></aw-wizard-step>
+<!--<aw-wizard [navBarLocation]='"left"' [navBarLayout]='"large-filled-symbols"'>-->
+<!--<aw-wizard-step stepTitle="Second Step" [navigationSymbol]="{ symbol: '2' }"></aw-wizard-step>-->
 
+<!--</aw-wizard>-->
+<aw-wizard class="rec" [navBarLayout]="['large-filled-symbols']">
+  <aw-wizard-step stepTitle="Choose patient" [navigationSymbol]="{symbol: '&#xf2c1;',fontFamily: 'FontAwesome'}">
+    <div style="width: 50%; margin-left: 25%;margin-top: 10%">
+      <h4 class="jumbotron" style="text-align: center">Patient: </h4>
+      <div *ngIf="selectedPatient!==undefined" style="background: lightgreen;border-radius: 9px">
+        <div style="margin-left: 10%;padding-top: 5%">
+          <div class=" form-inline">
+            <label><strong>Card number: </strong></label><input class="form-control form-control-sm"
+                                                                style="background: white;margin-left: 4%"
+                                                                value="{{selectedPatient.cardNumber}}" disabled><br>
+          </div>
+          <div class=" form-inline" style="margin-top: 2%">
+            <label><strong>Firstname:</strong> </label><input class="form-control form-control-sm"
+                                                              style="background: white;margin-left: 9%"
+                                                              value="{{selectedPatient.name}}" disabled/><br>
+          </div>
+          <div class=" form-inline" style="margin-top: 2%;padding-bottom: 2%">
+
+            <label><strong>Lastname: </strong></label><input class="form-control form-control-sm" width="50%"
+                                                             style="background: white;margin-left: 9%"
+                                                             value="{{selectedPatient.lastname}}" disabled/> <br>
+          </div>
+        </div>
+      </div>
+      <ng-select style="margin-top: 10%" [items]="patients"
+                 bindLabel="firstLast"
+                 [loading]="patientsLoading"
+                 [searchFn]="customSearchFn"
+                 placeholder="Choose patient"
+                 [virtualScroll]="true"
+                 [(ngModel)]="selectedPatient">
+        <ng-template ng-option-tmp let-item="item">
+          {{item.name + ' ' + item.lastname}} <br/>
+          <small>{{item.cardNumber}}</small>
+        </ng-template>
+      </ng-select>
+      <div style="margin-top: 15%;margin-left: 40%;padding-bottom: 30%">
+        <button type="button" class="btn btn-info" [disabled]="selectedPatient===undefined" awNextStep>Next Step
+        </button>
+      </div>
+    </div>
+  </aw-wizard-step>
+  <aw-wizard-step stepTitle="Diagnose disease" [navigationSymbol]="{symbol: '&#xf0f1;',fontFamily: 'FontAwesome'}">
+    <div *ngIf="!options">
+      <div style="margin-top: 6%;margin-left: 20%;">
+        <div class="row">
+          <div class="card bg-light mb-3" align="center" style="height: 18rem;width: 39em">
+            <div class="card-header">Reasoner</div>
+            <div class="card-body">
+              <h5 class="card-title">Start reasoner</h5>
+              <p class="card-text">Clicking on this, you will get most common disease for patient.</p>
+            </div>
+            <div class="card-footer bg-transparent ">
+              <button class="btn btn-info" (click)="reasonerStart()">Start</button>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="card bg-light mb-3" style="max-width: 18rem;height: 18rem;margin-top: 5%">
+            <div class="card-header">Query</div>
+            <div class="card-body">
+              <h5 class="card-title">Get all diseases by symptoms</h5>
+              <p class="card-text">Clicking on this, you will get all diseases which are linked with one or more
+                symptoms.</p>
+            </div>
+            <div class="card-footer bg-transparent ">
+              <button style="margin-left: 35%" class="btn btn-info" (click)="getDiseases()">Get all</button>
+            </div>
+
+          </div>
+          <div class="card bg-light mb-3" style="max-width: 18rem;height: 18rem;margin-top: 5%;margin-left: 5%">
+            <div class="card-header">Query</div>
+            <div class="card-body">
+              <h5 class="card-title">Get all symptoms by disease</h5>
+              <p class="card-text">Clicking on this, you will get all symptoms for disease sorted from general to
+                non-general.</p>
+            </div>
+            <div class="card-footer bg-transparent ">
+              <button style="margin-left: 35%" class="btn btn-info" (click)="getSymptoms()">Get all</button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div style="margin-top: 10%">
+        <button type="button" style="margin-left: 20%" class="btn btn-info" awPreviousStep><i
+          class="fa fa-arrow-left"></i> Go to previous step
+        </button>
+        <button type="button" style="margin-left: 25%" class="btn btn-info" awNextStep>Go to next step <i
+          class="fa fa-arrow-right"></i></button>
+      </div>
+    </div>
+    <app-diagnostic-options *ngIf="options" [type]="optionClicked" [user]="selectedPatient" (backClicked)="clickedBack($event)"></app-diagnostic-options>
+  </aw-wizard-step>
+  <aw-wizard-step stepTitle="Set disease" [navigationSymbol]="{symbol: '&#xf14a;',fontFamily: 'FontAwesome'}">
+    <div style="margin-top: 6%;margin-left: 20%;">
+      <div class="row">
+        <div class="card bg-light mb-3" style="max-width: 18rem;height: 18rem">
+          <div class="card-header">Reasoner</div>
+          <div class="card-body">
+            <h5 class="card-title">Start reasoner</h5>
+            <p class="card-text">Clicking on this, you will get most common disease for patient.</p>
+          </div>
+          <div class="card-footer bg-transparent ">
+            <button style="margin-left: 35%" class="btn btn-info">Start</button>
+          </div>
+
+        </div>
+        <div class="card bg-light mb-3" style="max-width: 18rem;height: 18rem;margin-left: 5%">
+          <div class="card-header">Query</div>
+          <div class="card-body">
+            <h5 class="card-title">Get all diseases by symptoms</h5>
+            <p class="card-text">Clicking on this, you will get all diseases which are linked with one or more
+              symptoms.</p>
+          </div>
+          <div class="card-footer bg-transparent ">
+            <button style="margin-left: 35%" class="btn btn-info">Get all</button>
+          </div>
+
+        </div>
+      </div>
+      <div class="row">
+        <div class="card bg-light mb-3" style="max-width: 18rem;height: 18rem;margin-top: 5%">
+          <div class="card-header">Query</div>
+          <div class="card-body">
+            <h5 class="card-title">Get all symptoms by disease</h5>
+            <p class="card-text">Clicking on this, you will get all symptoms for disease sorted from general to
+              non-general.</p>
+          </div>
+          <div class="card-footer bg-transparent ">
+            <button style="margin-left: 35%" class="btn btn-info">Get all</button>
+          </div>
+
+        </div>
+        <div class="card bg-light mb-3" style="max-width: 18rem;height: 18rem;margin-top: 5%;margin-left: 5%">
+          <div class="card-header">Diagnose</div>
+          <div class="card-body">
+            <h5 class="card-title">Make personal diagnostic</h5>
+            <p class="card-text">Clicking on this, you can set diagnostic for patient by yourself.</p>
+          </div>
+          <div class="card-footer bg-transparent ">
+            <button style="margin-left: 35%" class="btn btn-info">Make</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div style="margin-top: 10%">
+      <button type="button" style="margin-left: 20%" class="btn btn-info" awPreviousStep><i
+        class="fa fa-arrow-left"></i> Go to previous step
+      </button>
+      <button type="button" style="margin-left: 25%" class="btn btn-info" awNextStep>Go to next step <i
+        class="fa fa-arrow-right"></i></button>
+    </div>
+  </aw-wizard-step>
+
+  <aw-wizard-step stepTitle="Choose medicals" [navigationSymbol]="{symbol: '&#xf0c3;',fontFamily: 'FontAwesome'}">
+    Content of Step 3
+    <div style="margin-top: 10%">
+      <button type="button" style="margin-left: 20%" class="btn btn-info" awPreviousStep><i
+        class="fa fa-arrow-left"></i> Go to previous step
+      </button>
+      <button type="button" style="margin-left: 25%" class="btn btn-info" awNextStep>Go to next step <i
+        class="fa fa-arrow-right"></i></button>
+    </div>
+  </aw-wizard-step>
+  <aw-wizard-step stepTitle="Finish examination" [navigationSymbol]="{symbol: '&#xf00c;',fontFamily: 'FontAwesome'}">
+    Content of Step 3
+    <button type="button" awPreviousStep>Previous Step</button>
+    <button type="button" (click)="finishFunction()">Finish</button>
+  </aw-wizard-step>
 </aw-wizard>
+
+
+
+
+

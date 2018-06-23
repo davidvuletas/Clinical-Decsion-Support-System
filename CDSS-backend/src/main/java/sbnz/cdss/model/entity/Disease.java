@@ -1,7 +1,12 @@
 package sbnz.cdss.model.entity;
 
+import sbnz.cdss.model.dto.DiseaseDto;
+import sbnz.cdss.model.dto.SymptomDto;
+
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "disease")
@@ -59,5 +64,43 @@ public class Disease {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Disease{" +
+                "id=" + id +
+                ", disaeseCategory=" + disaeseCategory +
+                ", name='" + name + '\'' +
+                "}\n";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Disease disease = (Disease) o;
+        return Objects.equals(id, disease.id) &&
+                disaeseCategory == disease.disaeseCategory &&
+                Objects.equals(name, disease.name) &&
+                Objects.equals(symptoms, disease.symptoms);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, disaeseCategory, name, symptoms);
+    }
+
+    public DiseaseDto toDto() {
+        DiseaseDto diseaseDto = new DiseaseDto();
+        diseaseDto.setId(this.getId());
+        diseaseDto.setName(this.getName());
+        List<SymptomDto> symptomDtos = new ArrayList<>();
+        for(DiseaseSymptom ds : this.symptoms) {
+            symptomDtos.add(new SymptomDto(ds.getSymptom().getId(),ds.getSymptom().getDescription()));
+        }
+        diseaseDto.setSymptoms(symptomDtos);
+        return diseaseDto;
     }
 }

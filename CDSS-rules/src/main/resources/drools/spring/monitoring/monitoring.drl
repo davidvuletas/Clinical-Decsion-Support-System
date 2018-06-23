@@ -1,0 +1,65 @@
+package drools.spring.monitoring;
+
+import sbnz.cdss.model.monitoring.HeartBeatEvent;
+import sbnz.cdss.model.monitoring.OxygenEvent;
+import sbnz.cdss.model.monitoring.UrinatingEvent;
+import sbnz.cdss.model.entity.Patient;
+import sbnz.cdss.model.entity.Examination;
+
+rule "Ubrzan srčani ritam"
+    when        
+    	$patient: Patient()
+	 	Number(intValue >= 25) from accumulate(
+      		$hb: HeartBeatEvent(id == $patient.id)
+      		over window:time(10s),
+        	count($hb)
+        )
+        
+    then
+    	System.out.println("Ubrzan rad");
+        drools.halt();
+end
+
+rule "Problem sa kiseonikom"
+	when
+		$patient: Patient()
+		(
+			OxygenEvent(id == $patient.id, oxygenLevel < 70)
+		)
+		and
+		(
+			not(
+				OxygenEvent(id == $patient.id) 
+				over window:time(15m)
+				)
+		)
+	then
+	System.out.println("Problem sa kiseonikom");
+    drools.halt();
+	
+end
+
+
+rule "Hitno potrebna dijaliza"
+	when
+		$patient: Patient($examinations: examinations)
+		
+		Examination(
+			disease.name == "Hronična bubrežna bolest"
+		) from $examinations
+		
+		$n: Number(intValue >=10) from accumulate(
+            $hb: HeartBeatEvent(id == $patient.id)
+            over window:time(10s),
+            count($hb)
+        )
+        
+        Number(intValue < 100) from accumulate(
+            $ue: UrinatingEvent($amount: amount,id==$patient.id)
+            over window:time(12h),
+            sum($amount)
+        )
+	then
+	System.out.println("Hitno potrebna dijaliza: " + $n);
+    drools.halt();
+end

@@ -9,8 +9,10 @@ import java.util.List;
 public class SymptomsForSearch {
 
     private List<String> symptoms;
+    private PatientDto patientDto;
     private Patient patient;
-    private Date date = new Date();
+    private Date date;
+
 
     public Date getDate() {
         return date;
@@ -22,14 +24,7 @@ public class SymptomsForSearch {
 
     public SymptomsForSearch() {
         this.symptoms = new ArrayList<>();
-    }
-
-    public Patient getPatient() {
-        return patient;
-    }
-
-    public void setPatient(Patient patient) {
-        this.patient = patient;
+        this.date = new Date();
     }
 
     public List<String> getSymptoms() {
@@ -38,5 +33,21 @@ public class SymptomsForSearch {
 
     public void setSymptoms(List<String> symptoms) {
         this.symptoms = symptoms;
+    }
+
+    public PatientDto getPatientDto() {
+        return patientDto;
+    }
+
+    public void setPatientDto(PatientDto patientDto) {
+        this.patientDto = patientDto;
+    }
+
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
     }
 }

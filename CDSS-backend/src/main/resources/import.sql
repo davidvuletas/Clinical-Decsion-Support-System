@@ -19,7 +19,7 @@ INSERT INTO disease (id,disaese_category,name) VALUES (8,'THIRD', 'Akutna bubre≈
 INSERT INTO disease (id,disaese_category,name) VALUES (9,'SECOND', 'Visok pritisak');
 
 INSERT INTO symptom(id,description) VALUES  (1, 'Curenje iz nosa');
-INSERT INTO symptom(id,description) VALUES (2, 'Bol u grlu ');
+INSERT INTO symptom(id,description) VALUES (2, 'Bol u grlu');
 INSERT INTO symptom(id,description) VALUES (3, 'Glavobolja');
 INSERT INTO symptom(id,description) VALUES (4, 'Kijanje');
 INSERT INTO symptom(id,description) VALUES (5, 'Ka≈°alj');
@@ -134,6 +134,7 @@ INSERT INTO examination(id,date, disease_id, doctor_id) VALUES (14,'2018-2-7 11:
 INSERT INTO examination(id,date, disease_id, doctor_id) VALUES (15,'2017-5-7 14:51',6,1);
 INSERT INTO examination(id,date, disease_id, doctor_id) VALUES (16,'2016-10-12 08:30',5,1);
 INSERT INTO examination(id,date, disease_id, doctor_id) VALUES (17,'2018-06-12 17:30',2,1);
+INSERT INTO examination(id,date, disease_id, doctor_id) VALUES (18,'2018-06-12 17:30',7,1);
 
 
 INSERT INTO patient_examinations(patient_id, examinations_id) VALUES (1,1);
@@ -157,6 +158,7 @@ INSERT INTO patient_examinations(patient_id, examinations_id) VALUES (4,14);
 INSERT INTO patient_examinations(patient_id, examinations_id) VALUES (5,15);
 INSERT INTO patient_examinations(patient_id, examinations_id) VALUES (2,16);
 INSERT INTO patient_examinations(patient_id, examinations_id) VALUES (6,17);
+INSERT INTO patient_examinations(patient_id, examinations_id) VALUES (1,18);
 
 INSERT INTO medical(id,category, name) VALUES (1,'ANTIBIOTIC','Dovicin');
 INSERT INTO medical(id,category, name) VALUES (2,'ANTIBIOTIC','Palitrex');
@@ -166,12 +168,18 @@ INSERT INTO medical(id,category, name) VALUES (4,'ANALGESIC','Andol');
 INSERT INTO medical(id,category, name) VALUES (5,'ANALGESIC','Analgin');
 INSERT INTO medical(id,category, name) VALUES (6,'ANALGESIC','Aspirin');
 INSERT INTO medical(id,category, name) VALUES (7,'ANALGESIC','Febricet');
+INSERT INTO medical_ingredients(medical_id, ingredients) VALUES (7,'Paracetamol');
+INSERT INTO medical_ingredients(medical_id, ingredients) VALUES (7,'Celuloza');
+INSERT INTO medical_ingredients(medical_id, ingredients) VALUES (7,'Zelatin');
+
 
 INSERT INTO medical(id,category, name) VALUES (8,'OTHER','Gluformin');
 INSERT INTO medical(id,category, name) VALUES (9,'OTHER','Bio-kult');
 INSERT INTO medical(id,category, name) VALUES (10,'OTHER','Manozin');
 INSERT INTO medical(id,category, name) VALUES (11,'OTHER','C vitamin');
 
+INSERT INTO patient_allergens(patient_id, allergens) values (1,'Penicilin');
+INSERT INTO patient_allergens(patient_id, allergens) values (1,'Paracetamol');
 
 INSERT INTO examination_medicals(examination_id, medicals_id) VALUES (17,1);
 INSERT INTO examination_medicals(examination_id, medicals_id) VALUES (17,11);

@@ -5,6 +5,7 @@ import sbnz.cdss.model.entity.DiseaseCategory;
 import sbnz.cdss.model.entity.Disease;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public interface DiseaseService {
@@ -19,5 +20,7 @@ public interface DiseaseService {
 
     void deleteDisease(Disease disease);
 
-    List<Disease> getAllDiseaseLinkedBySymptoms(List<String> symptoms);
+    Map getAllDiseaseLinkedBySymptoms(List<String> symptoms);
+
+    Map getDiseaseWithSymptoms(String nameOfDisease);
 }

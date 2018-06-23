@@ -10,6 +10,8 @@ import sbnz.cdss.repository.UserRepository;
 import sbnz.cdss.service.PatientService;
 import sbnz.cdss.service.UserService;
 
+import java.util.List;
+
 @Service
 public class PatientServiceImpl implements PatientService {
 
@@ -19,5 +21,10 @@ public class PatientServiceImpl implements PatientService {
     @Override
     public Patient findPatientByCardNumber(String cardNumber) {
         return this.patientRepository.findPatientByHealthCardNumber(cardNumber);
+    }
+
+    @Override
+    public List<Patient> getAllPatients() {
+        return this.patientRepository.findAll();
     }
 }

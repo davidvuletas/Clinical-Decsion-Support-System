@@ -1,0 +1,86 @@
+<div class="rec">
+  <div *ngIf="type == 'reasoner' || type == 'diseases'">
+    <h4 class="jumbotron" style="text-align: center">Symptoms: </h4>
+    <ng-select
+      [items]="symptoms"
+      [multiple]="true"
+      [closeOnSelect]="false"
+      [hideSelected]="true"
+      bindLabel="description"
+      placeholder="Select symptoms"
+      [(ngModel)]="selectedSymptoms">
+      <ng-template ng-option-tmp let-item="item">
+        {{item.description}}
+      </ng-template>
+    </ng-select>
+    <button (click)="startReasoner()" class="btn btn-info" style="margin-top: 5%;margin-left: 40%"
+            *ngIf="type=='reasoner'">Start reasoner
+    </button>
+    <button (click)="getAllDiseasesLinked()" class="btn btn-info" style="margin-top: 5%;margin-left: 40%"
+            *ngIf="type=='diseases'">Get all diseases
+    </button>
+
+
+    <div style="margin-top: 10%" *ngIf="disease !== undefined && type === 'reasoner'">
+      <h4 class="jumbotron jumbotron-fluid" style="text-align: center;margin-top: 5%">Result: </h4>
+      <table class="table table-info">
+        <tr>
+          <td>Disease</td>
+          <td>{{disease.split(":")[0]}}</td>
+
+        </tr>
+        <tr>
+          <td>Percentage of symptoms</td>
+          <td>{{disease.split(":")[1]}} %</td>
+        </tr>
+      </table>
+    </div>
+    <div style="margin-top: 10%" *ngIf="diseases !== undefined && type === 'diseases'">
+      <h4 class="jumbotron jumbotron-fluid" style="text-align: center;margin-top: 5%">Result: </h4>
+      <table class="table table-light">
+        <tr class="bg-primary" align="center">
+          <th>Disease</th>
+          <th>Num of symptoms</th>
+        </tr>
+        <tr *ngFor="let ds of diseases" align="center">
+          <td><strong>{{ds.disease}}</strong></td>
+          <td><i>{{ds.number}}</i></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <div *ngIf="type == 'symptoms'">
+
+    <h4 class="jumbotron" style="text-align: center">Disease: </h4>
+    <ng-select style="margin-top: 10%" [items]="initialDiseases"
+               bindLabel="name"
+               [loading]="diseaseLoading"
+               placeholder="Choose disease"
+               [virtualScroll]="true"
+               [(ngModel)]="selectedDisease">
+      <ng-template ng-option-tmp let-item="item">
+        {{item.name}}
+      </ng-template>
+    </ng-select>
+
+    <button (click)="getAllSymptomsWithGenerality()" class="btn btn-info" style="margin-top: 5%;margin-left: 40%">Get all symptoms
+    </button>
+    <div style="margin-top: 10%" *ngIf="resultedSymptoms !== undefined && type === 'symptoms'">
+      <h4 class="jumbotron jumbotron-fluid" style="text-align: center;margin-top: 5%">Result: </h4>
+      <table class="table table-light">
+        <tr class="bg-primary" align="center">
+          <th>Symptom</th>
+          <th>General</th>
+        </tr>
+        <tr *ngFor="let s of resultedSymptoms.symptoms" align="center">
+          <td><strong>{{s.symptom}}</strong></td>
+          <td><i>{{s.specific}}</i></td>
+        </tr>
+      </table>
+    </div>
+
+  </div>
+
+  <button style="margin-top: 10%" (click)="back()" class="btn btn-info"><i class="fa fa-arrow-left"></i>Back</button>
+</div>

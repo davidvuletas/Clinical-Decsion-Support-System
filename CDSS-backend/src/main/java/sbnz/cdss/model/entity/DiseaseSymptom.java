@@ -53,22 +53,6 @@ public class  DiseaseSymptom {
         this.general = general;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
 
-        if (o == null || getClass() != o.getClass())
-            return false;
 
-        DiseaseSymptom that = (DiseaseSymptom) o;
-        return Objects.equals(disease, that.disease) &&
-                Objects.equals(symptom, that.symptom);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(disease, symptom);
-    }
-
-    
 }

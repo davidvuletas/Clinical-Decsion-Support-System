@@ -1,5 +1,9 @@
 package sbnz.cdss.model.entity;
 
+import sbnz.cdss.model.monitoring.HeartBeatEvent;
+import sbnz.cdss.model.monitoring.OxygenEvent;
+import sbnz.cdss.model.monitoring.UrinatingEvent;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -75,5 +79,16 @@ public class Patient {
 
     public void setHealthCardNumber(String healthCardNumber) {
         this.healthCardNumber = healthCardNumber;
+    }
+
+    @Override
+    public String toString() {
+        return "Patient{" +
+                "id=" + id +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", healthCardNumber='" + healthCardNumber + '\'' +
+                ", examinations=" + examinations +
+                '}';
     }
 }
