@@ -53,10 +53,22 @@ query getReportForChronicDisease(long DAY_IN_MS)
 					lista.add($p);),
 		result(lista)	
 	)
-	
-	
-
 end
+	
+query getReportForAddictedPatient(long DAY_IN_MS)
+	$p: Patient($examinations: examinations)
+	patients: List() from accumulate(
+		$e: Examination($medicals: medicals)  from $examinations
+		and
+		Medical(category == "ANALGESIC") from $medicals,
+		init(List lista = new ArrayList();),
+		action(lista.add($e);),
+		result(lista)
+	)
+	
+	
+end
+	
 
 query checkIfAllergic(Medical medical, List allergicIngredients)
 	alergic: List() from accumulate(

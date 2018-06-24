@@ -49,18 +49,21 @@ public class CdssApplicationTests {
         }
 
 
-        /*OxygenEvent oxygenEvent = new OxygenEvent(50,1L);
+        OxygenEvent oxygenEvent = new OxygenEvent(50,1L);
         ksession.insert(oxygenEvent);
+        int fired = ksession.fireAllRules();
+        assertThat(fired,equalTo(0));
         clock.advanceTime(18,TimeUnit.MINUTES);
-        ksession.fireAllRules();*/
+        fired = ksession.fireAllRules();
+        assertThat(fired,equalTo(1));
 
-        /*for(int i=0;i<26;i++) {
+        for(int i=0;i<26;i++) {
             HeartBeatEvent heartBeatEvent = new HeartBeatEvent(1L);
             ksession.insert(heartBeatEvent);
         }
         clock.advanceTime(9,TimeUnit.SECONDS);
-        ksession.fireAllRules();
-        */
+        fired = ksession.fireAllRules();
+        assertThat(fired, equalTo(1));
 
         int count_fired = 0;
         UrinatingEvent urinatingEvent = new UrinatingEvent(50,1L);

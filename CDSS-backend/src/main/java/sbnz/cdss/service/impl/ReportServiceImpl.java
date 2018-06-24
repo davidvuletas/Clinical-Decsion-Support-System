@@ -41,6 +41,15 @@ public class ReportServiceImpl implements ReportService {
 
     @Override
     public List<Patient> getAllPatientsAddicted() {
-        return null;
+        KieSession kieSession = this.utilService.getSessionForUser();
+        QueryResults results = null;
+        results = kieSession.getQueryResults("getReportForAddictedPatient", 1000 * 60 * 60 * 24);
+        for (QueryResultsRow res: results) {
+            for(Patient p: (List<Patient>)res.get("patients")){
+                System.out.println(p);
+            }
+
+        }
+        return new ArrayList<>();
     }
 }

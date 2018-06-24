@@ -16,7 +16,7 @@ export class DoctorComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.user = {username: 'username', password: 'password', firstname: '', lastname: ''};
+    this.user = {username: '', password: '', firstname: '', lastname: ''};
     this.loadDoctors();
   }
 

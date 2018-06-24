@@ -8,7 +8,7 @@
     </div>
     <div class="form-group row">
       <label for="ingredients">Ingredients: </label>
-      <ng-select style="margin-left: 11%;max-width: 50%"
+      <ng-select style="margin-left: 9%;max-width: 50%"
                  name="ingredients" id="ingredients"
                  [items]="[]"
                  [addTag]="addTag"
@@ -46,9 +46,10 @@
       <th>Ingredients</th>
     </tr>
     <tr *ngFor="let ms of medicals;let i=index;">
+      <td><strong>{{i+i}}</strong></td>
       <td>{{ms.name}}</td>
-      <td>{{ms.ingredients}}</td>
       <td>{{ms.category}}</td>
+      <td>{{ms.ingredients}}</td>
     </tr>
   </table>
 </div>

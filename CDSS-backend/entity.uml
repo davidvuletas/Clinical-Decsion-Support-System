@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>sbnz.cdss.model.entity</OriginalElement>
+  <nodes>
+    <node x="711.1979166666666" y="201.5">sbnz.cdss.model.entity.CategoryOfMedical</node>
+    <node x="374.19791666666663" y="168.0">sbnz.cdss.model.entity.DiseaseSymptom</node>
+    <node x="219.19791666666666" y="201.5">sbnz.cdss.model.entity.DiseaseCategory</node>
+    <node x="167.65625" y="678.0">sbnz.cdss.model.entity.Examination</node>
+    <node x="412.69791666666663" y="0.0">sbnz.cdss.model.entity.Symptom</node>
+    <node x="676.1979166666666" y="424.0">sbnz.cdss.model.entity.Medical</node>
+    <node x="0.0" y="380.0">sbnz.cdss.model.entity.User</node>
+    <node x="209.65624999999997" y="912.0">sbnz.cdss.model.entity.Patient</node>
+    <node x="55.0" y="212.5">sbnz.cdss.model.entity.Role</node>
+    <node x="314.2520833333333" y="424.0">sbnz.cdss.model.entity.Disease</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="sbnz.cdss.model.entity.User" target="sbnz.cdss.model.entity.Examination">
+      <point x="30.125" y="114.0" />
+      <point x="150.625" y="638.0" />
+      <point x="269.21875" y="638.0" />
+      <point x="-60.9375" y="-92.0" />
+    </edge>
+    <edge source="sbnz.cdss.model.entity.User" target="sbnz.cdss.model.entity.Role">
+      <point x="-60.25" y="-114.0" />
+      <point x="60.25" y="360.0" />
+      <point x="87.75" y="360.0" />
+      <point x="-32.75" y="36.5" />
+    </edge>
+    <edge source="sbnz.cdss.model.entity.Medical" target="sbnz.cdss.model.entity.CategoryOfMedical">
+      <point x="-55.25" y="-70.0" />
+      <point x="731.4479166666666" y="360.0" />
+      <point x="748.9479166666666" y="360.0" />
+      <point x="-37.75" y="47.5" />
+    </edge>
+    <edge source="sbnz.cdss.model.entity.Examination" target="sbnz.cdss.model.entity.Medical">
+      <point x="142.1875" y="-92.0" />
+      <point x="472.34375" y="658.0" />
+      <point x="841.9479166666666" y="658.0" />
+      <point x="55.25" y="70.0" />
+    </edge>
+    <edge source="sbnz.cdss.model.entity.Symptom" target="sbnz.cdss.model.entity.DiseaseSymptom">
+      <point x="30.0" y="59.0" />
+      <point x="562.6979166666666" y="143.0" />
+      <point x="572.3229166666666" y="143.0" />
+      <point x="39.625" y="-81.0" />
+    </edge>
+    <edge source="sbnz.cdss.model.entity.Examination" target="sbnz.cdss.model.entity.User">
+      <point x="-101.5625" y="-92.0" />
+      <point x="228.59375" y="648.0" />
+      <point x="90.375" y="648.0" />
+      <point x="-30.125" y="114.0" />
+    </edge>
+    <edge source="sbnz.cdss.model.entity.DiseaseSymptom" target="sbnz.cdss.model.entity.Disease">
+      <point x="39.625" y="81.0" />
+      <point x="572.3229166666666" y="350.0" />
+      <point x="504.0020833333333" y="350.0" />
+      <point x="63.25" y="-70.0" />
+    </edge>
+    <edge source="sbnz.cdss.model.entity.Patient" target="sbnz.cdss.model.entity.Examination">
+      <point x="60.25" y="-92.0" />
+      <point x="390.40625" y="887.0" />
+      <point x="411.40625" y="887.0" />
+      <point x="81.25" y="92.0" />
+    </edge>
+    <edge source="sbnz.cdss.model.entity.Disease" target="sbnz.cdss.model.entity.DiseaseSymptom">
+      <point x="-21.08333333333337" y="-70.0" />
+      <point x="419.66874999999993" y="360.0" />
+      <point x="413.82291666666663" y="360.0" />
+      <point x="-118.875" y="81.0" />
+    </edge>
+    <edge source="sbnz.cdss.model.entity.Examination" target="sbnz.cdss.model.entity.Disease">
+      <point x="20.3125" y="-92.0" />
+      <point x="350.46875" y="658.0" />
+      <point x="377.5020833333333" y="658.0" />
+      <point x="-63.25" y="70.0" />
+    </edge>
+    <edge source="sbnz.cdss.model.entity.DiseaseSymptom" target="sbnz.cdss.model.entity.Symptom">
+      <point x="-39.625" y="-81.0" />
+      <point x="493.07291666666663" y="143.0" />
+      <point x="502.69791666666663" y="143.0" />
+      <point x="-30.0" y="59.0" />
+    </edge>
+    <edge source="sbnz.cdss.model.entity.Disease" target="sbnz.cdss.model.entity.DiseaseCategory">
+      <point x="-105.41666666666663" y="-70.0" />
+      <point x="335.3354166666667" y="360.0" />
+      <point x="252.94791666666666" y="360.0" />
+      <point x="-33.75" y="47.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.5475444096133756" x="395.1151672345851" y="458.4999999999996" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
