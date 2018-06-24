@@ -34,4 +34,13 @@ public class ReportServiceImpl implements ReportService {
     }
 
 
+    @Override
+    public List<Patient> getAllPatientsWeakned() {
+        return null;
+    }
+
+    @Override
+    public List<Patient> getAllPatientsAddicted() {
+        return null;
+    }
 }

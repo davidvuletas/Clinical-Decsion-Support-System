@@ -1,0 +1,74 @@
+<ul class="nav nav-tabs" id="myTab" role="tablist" style="background-color: white">
+  <li class="nav-item">
+    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
+       aria-selected="true">Patients with potential chronically diseases</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
+       aria-selected="false">Patients which are addicted</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
+       aria-selected="false">Patients with a weakened immune system</a>
+  </li>
+</ul>
+<div class="tab-content" id="myTabContent">
+  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+    <div class="rec">
+      <h4 class="jumbotron" style="text-align: center">Patients with potential chronically diseases: </h4>
+      <table class="table">
+        <tr class="bg-primary">
+          <th></th>
+          <th>Card number</th>
+          <th>Name</th>
+          <th>Lastname</th>
+        </tr>
+        <tr *ngFor="let patient of chronicallyPatients;let i = index;">
+          <td><strong>{{i+1}}</strong></td>
+          <td>{{patient.cardNumber}}</td>
+          <td>{{patient.name}}</td>
+          <td>{{patient.lastname}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+    <div class="rec">
+      <h4 class="jumbotron" style="text-align: center">Patients which are addicted: </h4>
+      <table class="table">
+        <tr class="bg-primary">
+          <th></th>
+          <th>Card number</th>
+          <th>Name</th>
+          <th>Lastname</th>
+        </tr>
+        <tr *ngFor="let patient of addictedPatients;let i = index;">
+          <td><strong>{{i+1}}</strong></td>
+          <td>{{patient.cardNumber}}</td>
+          <td>{{patient.name}}</td>
+          <td>{{patient.lastname}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+    <div class="rec">
+      <h4 class="jumbotron" style="text-align: center">Patients with a weakened immune system: </h4>
+      <table class="table">
+        <tr class="bg-primary">
+          <th></th>
+          <th>Card number</th>
+          <th>Name</th>
+          <th>Lastname</th>
+        </tr>
+        <tr *ngFor="let patient of weakenedPatients;let i = index;">
+          <td><strong>{{i+1}}</strong></td>
+          <td>{{patient.cardNumber}}</td>
+          <td>{{patient.name}}</td>
+          <td>{{patient.lastname}}</td>
+        </tr>
+      </table>
+    </div>
+
+  </div>
+</div>

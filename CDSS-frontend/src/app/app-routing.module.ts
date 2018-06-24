@@ -8,6 +8,7 @@ import {PatientComponent} from './components/admin-functions/patient/patient.com
 import {DiseaseComponent} from './components/admin-functions/disease/disease.component';
 import {SymptomComponent} from './components/admin-functions/symptom/symptom.component';
 import {MedicalComponent} from './components/admin-functions/medical/medical.component';
+import {ReportsComponent} from './components/reports/reports.component';
 
 
 const appRoutes: Routes = [
@@ -20,6 +21,7 @@ const appRoutes: Routes = [
   {path: 'admin-operations/new/disease', component: DiseaseComponent},
   {path: 'admin-operations/new/symptom', component: SymptomComponent},
   {path: 'admin-operations/new/medical', component: MedicalComponent},
+  {path: 'reports' , component: ReportsComponent}
 ];
 
 @NgModule({

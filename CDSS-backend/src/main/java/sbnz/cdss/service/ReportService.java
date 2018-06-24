@@ -8,4 +8,8 @@ import java.util.List;
 @Service
 public interface ReportService {
     List<Patient> getAllPatientsChronic();
+
+    List<Patient> getAllPatientsWeakned();
+
+    List<Patient> getAllPatientsAddicted();
 }

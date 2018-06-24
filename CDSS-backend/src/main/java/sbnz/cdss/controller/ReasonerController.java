@@ -63,6 +63,19 @@ public class ReasonerController {
         return ResponseEntity.ok("");
     }
 
+    @GetMapping("/report/patients/weakened-immune")
+    public ResponseEntity<?> getReportForPatientWhichHaveWeaknedImmune() {
+        this.reportService.getAllPatientsWeakned();
+        return ResponseEntity.ok("");
+    }
+
+    @GetMapping("/report/patients/addicted")
+    public ResponseEntity<?> getReportForPatientWhichAreAddicted() {
+        this.reportService.getAllPatientsAddicted();
+        return ResponseEntity.ok("");
+    }
+
+
     @PostMapping("/patient/allergens")
     public ResponseEntity<?> isAllergic(@RequestBody PatientAndMedicals patientAndMedicals) {
         List<MedicalAndAlergens> medicalAndAlergens = this.medicalService.

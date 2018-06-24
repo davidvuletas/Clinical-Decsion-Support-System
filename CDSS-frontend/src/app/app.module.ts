@@ -20,6 +20,7 @@ import { DiseaseComponent } from './components/admin-functions/disease/disease.c
 import { MedicalComponent } from './components/admin-functions/medical/medical.component';
 import { PatientComponent } from './components/admin-functions/patient/patient.component';
 import { SymptomComponent } from './components/admin-functions/symptom/symptom.component';
+import { ReportsComponent } from './components/reports/reports.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { SymptomComponent } from './components/admin-functions/symptom/symptom.c
     DiseaseComponent,
     MedicalComponent,
     PatientComponent,
-    SymptomComponent
+    SymptomComponent,
+    ReportsComponent
   ],
   imports: [
     BrowserModule,
