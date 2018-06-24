@@ -1,0 +1,27 @@
+<div class="rec">
+  <h4 class="jumbotron" style="text-align: center">Add doctor: </h4>
+  <form style="margin-left:26%">
+    <div class="form-group row" style="margin-top: 10%">
+      <label for="first_name">Desciption: </label>
+      <input type="text" class="form-control" name="first_name" id="first_name" [(ngModel)]="symptom.description"
+             required
+             style="width: 40%;margin-left: 9%"/>
+    </div>
+
+    <button (click)="addSymptom()" class="btn btn-info" style="margin-top: 5%;margin-left: 25%">Add symptom
+    </button>
+  </form>
+</div>
+<div class="rec" *ngIf="symptoms">
+  <h4 class="jumbotron" style="text-align: center">Symptoms in system: </h4>
+  <table class="table">
+    <tr class="bg-primary">
+      <th></th>
+      <th align="center">Description</th>
+    </tr>
+    <tr *ngFor="let s of symptoms;let i = index;">
+      <td><strong>{{i+1}}</strong></td>
+      <td align="center" style="text-align: left">{{s.description}}</td>
+    </tr>
+  </table>
+</div>

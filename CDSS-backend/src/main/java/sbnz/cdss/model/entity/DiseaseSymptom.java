@@ -7,26 +7,36 @@ import java.util.Objects;
 @Table(name = "disease_symptom")
 public class  DiseaseSymptom {
 
-    @EmbeddedId
-    private DiseaseSymptomId id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId("diseaseId")
+    @JoinColumn(name = "disease_id")
     private Disease disease;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId("symptomId")
+    @JoinColumn(name = "symptom_id")
     private Symptom symptom;
 
     @Column(name = "general")
     private boolean general;
 
-    public DiseaseSymptomId getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(DiseaseSymptomId id) {
+    public void setId(Long id) {
         this.id = id;
+    }
+
+    public DiseaseSymptom(Disease disease, Symptom symptom, boolean general) {
+        this.disease = disease;
+        this.symptom = symptom;
+        this.general = general;
+    }
+
+    public DiseaseSymptom() {
     }
 
     public Disease getDisease() {
@@ -53,6 +63,20 @@ public class  DiseaseSymptom {
         this.general = general;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DiseaseSymptom that = (DiseaseSymptom) o;
+        return general == that.general &&
+                Objects.equals(id, that.id) &&
+                Objects.equals(disease, that.disease) &&
+                Objects.equals(symptom, that.symptom);
+    }
 
+    @Override
+    public int hashCode() {
 
+        return Objects.hash(id, disease, symptom, general);
+    }
 }

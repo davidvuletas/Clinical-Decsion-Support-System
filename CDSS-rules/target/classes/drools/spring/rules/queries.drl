@@ -5,7 +5,7 @@ import sbnz.cdss.model.entity.DiseaseSymptom;
 import sbnz.cdss.model.entity.Examination;
 import sbnz.cdss.model.entity.CategoryOfMedical;
 import sbnz.cdss.model.entity.Patient;
-
+import sbnz.cdss.model.entity.Medical;
 import java.util.*;
 import java.util.Map;
 import java.util.HashMap;
@@ -56,4 +56,14 @@ query getReportForChronicDisease(long DAY_IN_MS)
 	
 	
 
+end
+
+query checkIfAllergic(Medical medical, List allergicIngredients)
+	alergic: List() from accumulate(
+		i: String(this memberOf allergicIngredients)
+		from medical.ingredients,
+		init(List lista = new ArrayList();),
+		action(lista.add(i);),
+		result(lista)
+		)
 end

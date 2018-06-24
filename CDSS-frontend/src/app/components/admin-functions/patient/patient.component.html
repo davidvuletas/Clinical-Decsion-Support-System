@@ -1,0 +1,53 @@
+<div class="rec">
+  <h4 class="jumbotron" style="text-align: center">Add doctor: </h4>
+  <form style="margin-left:26%">
+    <div class="form-group row" style="margin-top: 10%">
+      <label for="first_name">First name: </label>
+      <input type="text" class="form-control" name="first_name" id="first_name" [(ngModel)]="user.name" required
+             style="width: 40%;margin-left: 10%" placeholder="Firstname"/>
+    </div>
+    <div class="form-group row">
+      <label for="last_name">Last name: </label>
+      <input type="text" class="form-control" name="last_name" id="last_name" [(ngModel)]="user.lastname" required
+             style="width:40%;margin-left: 10%" placeholder="Lastname"/>
+    </div>
+    <div class="form-group row">
+      <label for="username">Health card: </label>
+      <input type="text" class="form-control" name="username" id="username" [(ngModel)]="user.cardNumber" required
+             style="width: 40%;margin-left: 9%" placeholder="Card number"/>
+    </div>
+
+    <div class="form-group row">
+      <label for="username">Alergens: </label>
+      <ng-select style="margin-left: 11%;max-width: 50%"
+                 name="alergs"
+                 [items]="[]"
+                 [addTag]="addTag"
+                 [multiple]="true"
+                 [isOpen]="false"
+                 [placeholder]="'Input alergens'"
+                 [(ngModel)]="user.alergens">
+      </ng-select>
+    </div>
+
+    <button (click)="addPatient()" class="btn btn-info" style="margin-top: 5%;margin-left: 25%">Add patient
+    </button>
+  </form>
+</div>
+<div class="rec" *ngIf="patients">
+  <h4 class="jumbotron" style="text-align: center">Patients in system: </h4>
+  <table class="table">
+    <tr class="bg-primary">
+      <th>Card number</th>
+      <th>Name</th>
+      <th>Last name</th>
+      <th>Alergens</th>
+    </tr>
+    <tr *ngFor="let patient of patients">
+      <td>{{patient.cardNumber}}</td>
+      <td>{{patient.name}}</td>
+      <td>{{patient.lastname}}</td>
+      <td>{{patient.alergens}}</td>
+    </tr>
+  </table>
+</div>

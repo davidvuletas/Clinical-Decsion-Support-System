@@ -11,5 +11,7 @@ import java.util.List;
 public interface DiseaseRepository extends JpaRepository<Disease, Long> {
 
     Disease getDiseaseByName(String name);
-    List<Disease> getDiseasesByDisaeseCategory(DiseaseCategory category);
+    List<Disease> getDiseasesByDiseaseCategory(DiseaseCategory category);
+    Disease findDiseaseById(Long id);
+
 }

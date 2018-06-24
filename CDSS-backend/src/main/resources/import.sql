@@ -6,17 +6,16 @@ INSERT INTO user (id,username,password,firstname,lastname,role,on_duty)
 
 INSERT INTO user (id,username,password,firstname,lastname,role,on_duty)
  VALUES (3,'david','david123','David','Vuletas','ADMINISTRATOR',false);
+INSERT INTO disease (id,disease_category,name) VALUES (1,'FIRST', 'Prehlada');
+INSERT INTO disease (id,disease_category,name) VALUES (2,'FIRST', 'Groznica');
+INSERT INTO disease (id,disease_category,name) VALUES (3,'FIRST', 'Upala krajnika');
+INSERT INTO disease (id,disease_category,name) VALUES (4,'FIRST', 'Sinusna infekcija');
 
-INSERT INTO disease (id,disaese_category,name) VALUES (1,'FIRST', 'Prehlada');
-INSERT INTO disease (id,disaese_category,name) VALUES (2,'FIRST', 'Groznica');
-INSERT INTO disease (id,disaese_category,name) VALUES (3,'FIRST', 'Upala krajnika');
-INSERT INTO disease (id,disaese_category,name) VALUES (4,'FIRST', 'Sinusna infekcija');
-
-INSERT INTO disease (id,disaese_category,name) VALUES (5,'SECOND', 'Hipertenzija');
-INSERT INTO disease (id,disaese_category,name) VALUES (6,'SECOND', 'Dijabetes');
-INSERT INTO disease (id,disaese_category,name) VALUES (7,'THIRD', 'Hronična bubrežna bolest');
-INSERT INTO disease (id,disaese_category,name) VALUES (8,'THIRD', 'Akutna bubrežna povreda');
-INSERT INTO disease (id,disaese_category,name) VALUES (9,'SECOND', 'Visok pritisak');
+INSERT INTO disease (id,disease_category,name) VALUES (5,'SECOND', 'Hipertenzija');
+INSERT INTO disease (id,disease_category,name) VALUES (6,'SECOND', 'Dijabetes');
+INSERT INTO disease (id,disease_category,name) VALUES (7,'THIRD', 'Hronična bubrežna bolest');
+INSERT INTO disease (id,disease_category,name) VALUES (8,'THIRD', 'Akutna bubrežna povreda');
+INSERT INTO disease (id,disease_category,name) VALUES (9,'SECOND', 'Visok pritisak');
 
 INSERT INTO symptom(id,description) VALUES  (1, 'Curenje iz nosa');
 INSERT INTO symptom(id,description) VALUES (2, 'Bol u grlu');
@@ -161,12 +160,30 @@ INSERT INTO patient_examinations(patient_id, examinations_id) VALUES (6,17);
 INSERT INTO patient_examinations(patient_id, examinations_id) VALUES (1,18);
 
 INSERT INTO medical(id,category, name) VALUES (1,'ANTIBIOTIC','Dovicin');
+INSERT INTO medical_ingredients(medical_id, ingredients) VALUES (1,'Doksiciklin');
+INSERT INTO medical_ingredients(medical_id, ingredients) VALUES (1,'Laktoza');
+INSERT INTO medical_ingredients(medical_id, ingredients) VALUES (1,'Skrob');
+
 INSERT INTO medical(id,category, name) VALUES (2,'ANTIBIOTIC','Palitrex');
+INSERT INTO medical_ingredients(medical_id, ingredients) VALUES (2,'Cefaleksin');
+INSERT INTO medical_ingredients(medical_id, ingredients) VALUES (2,'Želatin');
+
 INSERT INTO medical(id,category, name) VALUES (3,'ANTIBIOTIC','Sinacilin');
+INSERT INTO medical_ingredients(medical_id, ingredients) VALUES (3,'Amoksicilina kiselina');
+INSERT INTO medical_ingredients(medical_id, ingredients) VALUES (3,'Natrijum-citrat');
 
 INSERT INTO medical(id,category, name) VALUES (4,'ANALGESIC','Andol');
+INSERT INTO medical_ingredients(medical_id, ingredients) VALUES (4,'Acetilsalicilna kiselina');
+INSERT INTO medical_ingredients(medical_id, ingredients) VALUES (4,'Skrob');
+INSERT INTO medical_ingredients(medical_id, ingredients) VALUES (4,'Magnezijum-oksid');
+
 INSERT INTO medical(id,category, name) VALUES (5,'ANALGESIC','Analgin');
+INSERT INTO medical_ingredients(medical_id, ingredients) VALUES (5,'Želatin');
+INSERT INTO medical_ingredients(medical_id, ingredients) VALUES (5,'Natrijum-laurilsulfat');
+
 INSERT INTO medical(id,category, name) VALUES (6,'ANALGESIC','Aspirin');
+INSERT INTO medical_ingredients(medical_id, ingredients) VALUES (6,'Acetilsalicilna kiselina');
+INSERT INTO medical_ingredients(medical_id, ingredients) VALUES (6,'Skrob');
 INSERT INTO medical(id,category, name) VALUES (7,'ANALGESIC','Febricet');
 INSERT INTO medical_ingredients(medical_id, ingredients) VALUES (7,'Paracetamol');
 INSERT INTO medical_ingredients(medical_id, ingredients) VALUES (7,'Celuloza');
@@ -174,12 +191,30 @@ INSERT INTO medical_ingredients(medical_id, ingredients) VALUES (7,'Zelatin');
 
 
 INSERT INTO medical(id,category, name) VALUES (8,'OTHER','Gluformin');
+INSERT INTO medical_ingredients(medical_id, ingredients) VALUES (8,'Metformin-hidrohlorid');
+INSERT INTO medical_ingredients(medical_id, ingredients) VALUES (8,'Hipromeloza');
+
 INSERT INTO medical(id,category, name) VALUES (9,'OTHER','Bio-kult');
-INSERT INTO medical(id,category, name) VALUES (10,'OTHER','Manozin');
+INSERT INTO medical_ingredients(medical_id, ingredients) VALUES (9,'Grejpfrut');
+INSERT INTO medical_ingredients(medical_id, ingredients) VALUES (9,'Beli luk');
+
+INSERT INTO medical(id,category, name) VALUES (10,'OTHER','D-Manozinn');
+INSERT INTO medical_ingredients(medical_id, ingredients) VALUES (10,'D-manoza');
+
 INSERT INTO medical(id,category, name) VALUES (11,'OTHER','C vitamin');
+INSERT INTO medical_ingredients(medical_id, ingredients) VALUES (11,'Askorbinska kiselina');
+INSERT INTO medical_ingredients(medical_id, ingredients) VALUES (11,'Magnezijum-stearat');
 
 INSERT INTO patient_allergens(patient_id, allergens) values (1,'Penicilin');
 INSERT INTO patient_allergens(patient_id, allergens) values (1,'Paracetamol');
+INSERT INTO patient_allergens(patient_id, allergens) values (2,'D-manoza');
+INSERT INTO patient_allergens(patient_id, allergens) values (3,'Zelatin');
+INSERT INTO patient_allergens(patient_id, allergens) values (4,'Magnezijum-oksid');
+INSERT INTO patient_allergens(patient_id, allergens) values (5,'Acetilsalicilna kiselina');
+INSERT INTO patient_allergens(patient_id, allergens) values (5,'Natrijum-citrat');
+INSERT INTO patient_allergens(patient_id, allergens) values (6,'Cefaleksin');
+
+
 
 INSERT INTO examination_medicals(examination_id, medicals_id) VALUES (17,1);
 INSERT INTO examination_medicals(examination_id, medicals_id) VALUES (17,11);

@@ -7,6 +7,8 @@ import sbnz.cdss.model.entity.User;
 import sbnz.cdss.repository.UserRepository;
 import sbnz.cdss.service.UserService;
 
+import java.util.List;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -35,5 +37,33 @@ public class UserServiceImpl implements UserService {
             return true;
         }
 
+    }
+
+    @Override
+    public User addAdministrator(User user) {
+        user.setRole(Role.ADMINISTRATOR);
+        return this.userRepository.save(user);
+    }
+
+    @Override
+    public User updateUser(User user) {
+        return this.userRepository.save(user);
+    }
+
+    @Override
+    public void deleteUser(User user) {
+        this.userRepository.delete(user);
+    }
+
+    @Override
+    public void deleteUser(Long id) {
+        User user = this.userRepository.findUserById(id);
+        this.userRepository.delete(user);
+    }
+
+
+    @Override
+    public List<User> getAllDoctors() {
+        return this.userRepository.findAllByRole(Role.DOCTOR);
     }
 }

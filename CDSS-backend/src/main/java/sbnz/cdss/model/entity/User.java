@@ -2,6 +2,7 @@ package sbnz.cdss.model.entity;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "user")
@@ -39,8 +40,24 @@ public class User {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        return ((User) obj).getId().equals(this.id);
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return onDuty == user.onDuty &&
+                Objects.equals(id, user.id) &&
+                Objects.equals(username, user.username) &&
+                Objects.equals(password, user.password) &&
+                Objects.equals(firstname, user.firstname) &&
+                Objects.equals(lastname, user.lastname) &&
+                role == user.role &&
+                Objects.equals(examinations, user.examinations);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, username, password, firstname, lastname, role, onDuty, examinations);
     }
 
     public Long getId() {

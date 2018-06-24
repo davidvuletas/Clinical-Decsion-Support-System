@@ -19,7 +19,7 @@ public class Disease {
 
     @Column
     @Enumerated(value = EnumType.STRING)
-    private DiseaseCategory disaeseCategory;
+    private DiseaseCategory diseaseCategory;
 
     @Column(name = "name")
     private String name;
@@ -42,12 +42,12 @@ public class Disease {
         this.id = id;
     }
 
-    public DiseaseCategory getDisaeseCategory() {
-        return disaeseCategory;
+    public DiseaseCategory getDiseaseCategory() {
+        return diseaseCategory;
     }
 
-    public void setDisaeseCategory(DiseaseCategory disaeseCategory) {
-        this.disaeseCategory = disaeseCategory;
+    public void setDiseaseCategory(DiseaseCategory diseaseCategory) {
+        this.diseaseCategory = diseaseCategory;
     }
 
     public List<DiseaseSymptom> getSymptoms() {
@@ -70,7 +70,7 @@ public class Disease {
     public String toString() {
         return "Disease{" +
                 "id=" + id +
-                ", disaeseCategory=" + disaeseCategory +
+                ", diseaseCategory=" + diseaseCategory +
                 ", name='" + name + '\'' +
                 "}\n";
     }
@@ -81,7 +81,7 @@ public class Disease {
         if (o == null || getClass() != o.getClass()) return false;
         Disease disease = (Disease) o;
         return Objects.equals(id, disease.id) &&
-                disaeseCategory == disease.disaeseCategory &&
+                diseaseCategory == disease.diseaseCategory &&
                 Objects.equals(name, disease.name) &&
                 Objects.equals(symptoms, disease.symptoms);
     }
@@ -89,7 +89,7 @@ public class Disease {
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, disaeseCategory, name, symptoms);
+        return Objects.hash(id, diseaseCategory, name, symptoms);
     }
 
     public DiseaseDto toDto() {

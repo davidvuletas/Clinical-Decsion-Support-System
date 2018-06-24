@@ -2,6 +2,7 @@ package sbnz.cdss.model.entity;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "Medical")
@@ -54,5 +55,22 @@ public class Medical {
 
     public void setIngredients(List<String> ingredients) {
         this.ingredients = ingredients;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Medical medical = (Medical) o;
+        return Objects.equals(id, medical.id) &&
+                category == medical.category &&
+                Objects.equals(name, medical.name) &&
+                Objects.equals(ingredients, medical.ingredients);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, category, name, ingredients);
     }
 }

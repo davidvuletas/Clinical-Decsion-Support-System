@@ -1,0 +1,54 @@
+<div class="rec">
+  <h4 class="jumbotron" style="text-align: center">Add medical: </h4>
+  <form style="margin-left:26%">
+    <div class="form-group row" style="margin-top: 10%">
+      <label for="name">Medical name: </label>
+      <input type="text" class="form-control" name="name" id="name" [(ngModel)]="medical.name" required
+             style="width: 35%;margin-left: 7%" placeholder="Medical name"/>
+    </div>
+    <div class="form-group row">
+      <label for="ingredients">Ingredients: </label>
+      <ng-select style="margin-left: 11%;max-width: 50%"
+                 name="ingredients" id="ingredients"
+                 [items]="[]"
+                 [addTag]="addTag"
+                 [multiple]="true"
+                 [isOpen]="false"
+                 [placeholder]="'Input ingredients'"
+                 [(ngModel)]="medical.ingredients">
+      </ng-select>
+    </div>
+
+    <div class="form-group row">
+      <label for="category">Category: </label>
+      <ng-select style="margin-left: 11%;width: 15em;"
+                 name="category" id="category"
+                 [items]="['ANALGESIC','ANTIBIOTIC','OTHER']"
+                 [addTag]="addTag"
+                 bindLabel="category"
+                 bindValue="category"
+                 [placeholder]="'Choose category'"
+                 [(ngModel)]="medical.category">
+      </ng-select>
+    </div>
+
+    <button (click)="addMedical()" class="btn btn-info" style="margin-top: 5%;margin-left: 25%">Add medical
+    </button>
+  </form>
+</div>
+<div class="rec" *ngIf="medicals">
+  <h4 class="jumbotron" style="text-align: center">Medicals in system: </h4>
+  <table class="table">
+    <tr class="bg-primary">
+      <th></th>
+      <th>Name</th>
+      <th>Category</th>
+      <th>Ingredients</th>
+    </tr>
+    <tr *ngFor="let ms of medicals;let i=index;">
+      <td>{{ms.name}}</td>
+      <td>{{ms.ingredients}}</td>
+      <td>{{ms.category}}</td>
+    </tr>
+  </table>
+</div>

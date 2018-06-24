@@ -12,4 +12,8 @@ export class PatientsService {
   getAllPatients() {
     return this.http.get('/api/patients');
   }
+
+  addPatient(user: any) {
+    return this.http.post('/api/patients', user);
+  }
 }

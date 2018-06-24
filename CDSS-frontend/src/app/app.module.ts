@@ -15,6 +15,11 @@ import { ServePatientComponent } from './components/serve-patient/serve-patient.
 import {ArchwizardModule} from 'angular-archwizard';
 import {NgSelectModule} from '@ng-select/ng-select';
 import { DiagnosticOptionsComponent } from './components/diagnostic-options/diagnostic-options.component';
+import { DoctorComponent } from './components/admin-functions/doctor/doctor.component';
+import { DiseaseComponent } from './components/admin-functions/disease/disease.component';
+import { MedicalComponent } from './components/admin-functions/medical/medical.component';
+import { PatientComponent } from './components/admin-functions/patient/patient.component';
+import { SymptomComponent } from './components/admin-functions/symptom/symptom.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +28,12 @@ import { DiagnosticOptionsComponent } from './components/diagnostic-options/diag
     LoginComponent,
     HomeComponent,
     ServePatientComponent,
-    DiagnosticOptionsComponent
+    DiagnosticOptionsComponent,
+    DoctorComponent,
+    DiseaseComponent,
+    MedicalComponent,
+    PatientComponent,
+    SymptomComponent
   ],
   imports: [
     BrowserModule,

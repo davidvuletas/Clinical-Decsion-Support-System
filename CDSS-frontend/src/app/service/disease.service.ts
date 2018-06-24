@@ -12,4 +12,8 @@ export class DiseaseService {
   getAllDiseases() {
     return this.http.get('/api/diseases');
   }
+
+  addDisease(disease) {
+    return this.http.post('/api/diseases', disease);
+  }
 }

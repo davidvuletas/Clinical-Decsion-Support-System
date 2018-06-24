@@ -7,18 +7,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sbnz.cdss.model.entity.Patient;
 import sbnz.cdss.service.ReportService;
+import sbnz.cdss.service.UtilService;
 
+import javax.servlet.ServletContext;
 import java.util.*;
 
 @Service
 public class ReportServiceImpl implements ReportService {
 
     @Autowired
-    private Map<String,KieSession> sessions;
+    private UtilService utilService;
+
 
     @Override
     public List<Patient> getAllPatientsChronic() {
-        KieSession kieSession = this.sessions.get("david");
+        KieSession kieSession = this.utilService.getSessionForUser();
         QueryResults results = null;
         results = kieSession.getQueryResults("getReportForChronicDisease", 1000 * 60 * 60 * 24);
         for (QueryResultsRow res: results) {

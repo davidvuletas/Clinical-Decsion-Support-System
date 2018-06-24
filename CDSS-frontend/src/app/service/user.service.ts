@@ -13,4 +13,16 @@ export class UserService {
   login(username: string, password: string) {
     return this.http.post('/api/users/login', {'username': username, 'password': password});
   }
+
+  logout() {
+    return this.http.post('/api/user/logout', null);
+  }
+
+  addDoctor(user) {
+    return this.http.post('/api/users/add-doctor', user,{responseType: 'text'});
+  }
+
+  getAllDoctors() {
+    return this.http.get('/api/users/doctors');
+  }
 }

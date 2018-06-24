@@ -27,6 +27,9 @@ export class SecurityUtil {
     // return JSON.parse(localStorage.getItem('loggedUser'))['RegisterDto']['Email'];
   }
 
+  static getUser() {
+    return JSON.parse(localStorage.getItem('loggedUser'));
+  }
   // static getId() {
   //   if (this.isEmpty()) {
   //     return -1;

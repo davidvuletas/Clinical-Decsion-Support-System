@@ -10,4 +10,8 @@ import java.util.List;
 public interface PatientService {
     Patient findPatientByCardNumber(String cardNumber);
     List<Patient> getAllPatients();
+    Patient addPatient(Patient patient);
+    void removePatient(Patient patient);
+    void removePatient(Long id);
+    Patient updatePatient(Patient patient);
 }

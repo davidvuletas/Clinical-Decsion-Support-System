@@ -6,21 +6,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import sbnz.cdss.model.dto.MedicalAndAlergens;
+import sbnz.cdss.model.dto.PatientAndMedicals;
 import sbnz.cdss.model.dto.PatientDto;
 import sbnz.cdss.model.dto.SymptomsForSearch;
 import sbnz.cdss.model.entity.Patient;
+import sbnz.cdss.service.MedicalService;
 import sbnz.cdss.service.PatientService;
 import sbnz.cdss.service.ReportService;
+import sbnz.cdss.service.UtilService;
 import sbnz.cdss.service.impl.DebugAgendaEventListener;
 
+import javax.servlet.ServletContext;
 import java.util.HashMap;
+import java.util.List;
 
 @RestController
 @RequestMapping("api/reasoner")
 public class ReasonerController {
 
     @Autowired
-    private HashMap<String, KieSession> sessions;
+    private UtilService utilService;
 
     @Autowired
     private PatientService patientService;
@@ -28,11 +34,15 @@ public class ReasonerController {
     @Autowired
     private ReportService reportService;
 
+    @Autowired
+    private MedicalService medicalService;
+
+
     @PostMapping("/find-disease/priority")
     public ResponseEntity<?> findDiseaseBySymptomsWithPriority(@RequestBody SymptomsForSearch symptomsForSearch) {
         Patient patient = this.patientService.findPatientByCardNumber(symptomsForSearch.getPatientDto().getCardNumber());
         symptomsForSearch.setPatient(patient);
-        KieSession kieSession = this.sessions.get("dr_tica");
+        KieSession kieSession = this.utilService.getSessionForUser();
         kieSession.getAgenda().getAgendaGroup("priority-symptoms").setFocus();
         kieSession.insert(symptomsForSearch);
         kieSession.fireAllRules(1);
@@ -51,6 +61,14 @@ public class ReasonerController {
     public ResponseEntity<?> getReportForPatientWithChronicDisease() {
         this.reportService.getAllPatientsChronic();
         return ResponseEntity.ok("");
+    }
+
+    @PostMapping("/patient/allergens")
+    public ResponseEntity<?> isAllergic(@RequestBody PatientAndMedicals patientAndMedicals) {
+        List<MedicalAndAlergens> medicalAndAlergens = this.medicalService.
+                checkAllergens(patientAndMedicals.getMedicals(), patientAndMedicals.getPatientDto());
+        return ResponseEntity.ok(medicalAndAlergens);
+
     }
 
 }

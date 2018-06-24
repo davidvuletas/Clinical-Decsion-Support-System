@@ -3,8 +3,11 @@ package sbnz.cdss.controller;
 import org.kie.api.runtime.KieSession;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 import sbnz.cdss.model.dto.DoctorDto;
 import sbnz.cdss.model.dto.LoginDto;
@@ -15,6 +18,9 @@ import sbnz.cdss.service.PatientService;
 import sbnz.cdss.service.UserService;
 import sbnz.cdss.service.UtilService;
 
+import javax.servlet.ServletContext;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 
 @RestController
@@ -36,14 +42,19 @@ public class UserController {
     @Autowired
     private HashMap<String, KieSession> sessions;
 
+    @Autowired
+    ServletContext servletContext;
+
+
+
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginDto loginDto) {
 
         User user = userService.login(loginDto.getUsername(), loginDto.getPassword());
-
         if (user != null) {
             UserDto dto = modelMapper.map(user, UserDto.class);
             this.utilService.createKieSession(user.getUsername());
+            servletContext.setAttribute("loggedUser",user.getUsername());
             return new ResponseEntity<>(dto, HttpStatus.OK);
         }
         return ResponseEntity.badRequest().body("Invalid login");
@@ -59,10 +70,16 @@ public class UserController {
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<?> logout(@RequestBody LogoutDto logoutDto) {
-        this.sessions.get(logoutDto.getUsername()).dispose();
-        this.sessions.remove(logoutDto.getUsername());
+    public ResponseEntity<?> logout(@RequestBody Object obj) {
+        this.sessions.get(servletContext.getAttribute("loggedUser")).dispose();
+        this.sessions.remove(servletContext.getAttribute("loggedUser"));
+        this.servletContext.removeAttribute("loggedUser");
         return ResponseEntity.accepted().body(null);
+    }
+
+    @GetMapping("/doctors")
+    public ResponseEntity<?> getAllDoctors() {
+        return ResponseEntity.ok(this.userService.getAllDoctors());
     }
 
     @GetMapping("/get-all-symptoms/{cardNumber}")

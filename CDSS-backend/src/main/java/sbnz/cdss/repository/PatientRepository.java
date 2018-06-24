@@ -9,4 +9,5 @@ import sbnz.cdss.model.entity.User;
 public interface PatientRepository extends JpaRepository<Patient,Long> {
 
     Patient findPatientByHealthCardNumber(String cardNumber);
+    Patient findPatientById(Long id);
 }

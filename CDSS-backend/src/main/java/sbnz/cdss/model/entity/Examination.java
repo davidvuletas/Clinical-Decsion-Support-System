@@ -6,6 +6,7 @@ import org.kie.api.definition.type.Timestamp;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @org.kie.api.definition.type.Role(Role.Type.EVENT)
 @Timestamp("date")
@@ -29,10 +30,17 @@ public class Examination {
     @JoinColumn(name = "disease_id")
     private Disease disease;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @ManyToMany
     private List<Medical> medicals;
 
     public Examination() {
+    }
+
+    public Examination(Date date, User doctor, Disease disease, List<Medical> medicals) {
+        this.date = date;
+        this.doctor = doctor;
+        this.disease = disease;
+        this.medicals = medicals;
     }
 
     public Long getId() {
@@ -81,5 +89,23 @@ public class Examination {
                 "date=" + date +
                 "disease=" + disease +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Examination that = (Examination) o;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(date, that.date) &&
+                Objects.equals(doctor, that.doctor) &&
+                Objects.equals(disease, that.disease) &&
+                Objects.equals(medicals, that.medicals);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, date, doctor, disease, medicals);
     }
 }

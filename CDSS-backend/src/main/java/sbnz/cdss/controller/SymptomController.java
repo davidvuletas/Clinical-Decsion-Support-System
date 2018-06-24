@@ -2,9 +2,7 @@ package sbnz.cdss.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import sbnz.cdss.model.dto.SymptomDto;
 import sbnz.cdss.model.entity.Symptom;
 import sbnz.cdss.service.SymptomService;
@@ -28,5 +26,10 @@ public class SymptomController {
         }
 
         return ResponseEntity.ok(symptomDtos);
+    }
+
+    @PostMapping
+    public ResponseEntity<?> addSymptom(@RequestBody Symptom symptom) {
+        return ResponseEntity.ok(this.symptomService.addNewSymptom(symptom));
     }
 }

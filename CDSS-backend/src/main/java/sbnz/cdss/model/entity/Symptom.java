@@ -60,4 +60,20 @@ public class Symptom {
                 ", description='" + description + '\'' +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Symptom symptom = (Symptom) o;
+        return Objects.equals(id, symptom.id) &&
+                Objects.equals(description, symptom.description) &&
+                Objects.equals(diseases, symptom.diseases);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, description, diseases);
+    }
 }
